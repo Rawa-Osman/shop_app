@@ -31,7 +31,7 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                     label: Text(
-                      '\$${cart.TotalAmount}',
+                      '\$${cart.TotalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
                         color:
                             Theme.of(context).primaryTextTheme.headline6.color,
@@ -42,9 +42,13 @@ class CartScreen extends StatelessWidget {
                   FlatButton(
                     child: Text('ORDER NOW'),
                     onPressed: () {
-                      Provider.of<Orders>(context, listen: false).addOrder(
-                          cart.items.values.toList(), cart.TotalAmount);
-                      cart.clear();
+                      if (cart.TotalAmount != 0) {
+                        Provider.of<Orders>(context, listen: false).addOrder(
+                            cart.items.values.toList(), cart.TotalAmount);
+                        cart.clear();
+                      } else {
+                        return null;
+                      }
                     },
                     textColor: Theme.of(context).primaryColor,
                   )
