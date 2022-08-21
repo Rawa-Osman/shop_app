@@ -73,7 +73,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     super.dispose();
   }
 
-  void _saveForm() {
+  void _saveForm() async {
     final _isvalid = _form.currentState.validate();
     if (!_isvalid) {
       return;
@@ -90,9 +90,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
         _isLoading = false;
       });
     } else {
-      Provider.of<Products>(context, listen: false)
-          .addProduct(_editedProduct)
-          .catchError((error) {
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (error) {
         return showDialog<Null>(
             context: context,
             builder: (ctx) => AlertDialog(
@@ -109,13 +110,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         child: Text('Okay'))
                   ],
                 ));
-      }).then((_) {
+      } finally {
         setState(() {
           _isLoading = false;
         });
         Navigator.of(context).pop();
-      });
+      }
     }
+
     // Navigator.of(context).pop();
   }
 
