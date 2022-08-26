@@ -5,28 +5,28 @@ import '../providers/orders.dart' show Orders;
 import '../widgets/order_item.dart';
 import '../widgets/app_drawer.dart';
 
-class OrdersScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
   static const routeName = '/orders';
 
-////this was for stateFull
-  // var _isLoading = false;
-  // @override
-  // void initState() {
-  //   Future.delayed(Duration.zero).then((value) async {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     await Provider.of<Orders>(context, listen: false).fetchAndSetOrder();
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   });
-  //   super.initState();
-  // }
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
+  Future _orderFuture;
+  Future _obtainOrdersFuture() {
+    return Provider.of<Orders>(context, listen: false).fetchAndSetOrder();
+  }
+
+//no new future is created when widget rebuiled(recreated)
+  @override
+  void initState() {
+    _orderFuture = _obtainOrdersFuture();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    //print('///////////////////////is infint loop?');
     // final orderData = Provider.of<Orders>(context);
     return Scaffold(
       appBar: AppBar(
