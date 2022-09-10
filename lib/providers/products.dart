@@ -98,7 +98,7 @@ class Products with ChangeNotifier {
               description: prodData['description'],
               price: prodData['price'],
               isFavorite:
-                  favoriteData == null ? false : favoriteData[prodId] ?? null,
+                  favoriteData == null ? false : favoriteData[prodId] ?? false,
               imageUrl: prodData['imageUrl']),
         );
       });
