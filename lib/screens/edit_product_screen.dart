@@ -98,12 +98,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   ),
                   content: Text('something went wrong'),
                   actions: [
-                    FlatButton(
-                        textColor: Colors.blue,
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text('Okay'))
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                      child: Text('Okay'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                      ),
+                    ),
                   ],
                 ));
       }

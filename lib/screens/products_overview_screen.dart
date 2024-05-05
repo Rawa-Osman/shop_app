@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/Badgee.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
 import '../providers/cart.dart';
-import '../widgets/badge.dart';
+
 import './cart_screen.dart';
 import '../providers/products.dart';
 
@@ -78,9 +79,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             ],
           ),
           Consumer<Cart>(
-            builder: (context, cart, ch) => Badge(
+            builder: (context, cart, ch) => Badgee(
               child: ch,
-              value: cart.ItemCount.toString(),
+              label: Text(cart.ItemCount.toString()),
             ),
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
